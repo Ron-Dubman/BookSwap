@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: header"></head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<div class="container">
+    <!-- Hero Section -->
+    <section class="py-5 text-center">
+        <h1 class="display-4 fw-bold mb-3">📚 Welcome to BookSwap</h1>
+        <p class="lead text-muted mb-4">A Secure Book Listing / Swapping Platform</p>
+        
+        <div sec:authorize="isAnonymous()">
+            <a href="/register" class="btn btn-primary btn-lg me-2">Get Started</a>
+            <a href="/login" class="btn btn-outline-primary btn-lg">Login</a>
+        </div>
+        
+        <div sec:authorize="isAuthenticated()">
+            <a href="/forum" class="btn btn-primary btn-lg me-2">Browse Forum</a>
+            <a href="/books/new" class="btn btn-success btn-lg">List a Book</a>
+        </div>
+    </section>
+
+    <hr class="my-5">
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <h2 class="text-center mb-5">BookSwap Features</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">📜 List Owned Books For Swap</h5>
+                        <p class="card-text">List your books and swap with other members.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">🔎︎ Search For Books On Your Wishlist</h5>
+                        <p class="card-text">Look up available listings of your desired books.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">🔐 Secure User Experience</h5>
+                        <p class="card-text">Your data is protected with industry-standard encryption.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="my-5">
+
+    <!-- CTA Section -->
+    <section class="py-5 bg-light rounded-3 text-center">
+        <h3 class="mb-3">New to BookSwap?</h3>
+        <p class="text-muted mb-4">
+            Learn how to find books, request swaps, and connect with other readers safely via email.
+        </p>
+        
+        <a href="/guide" class="btn btn-info btn-lg text-white">
+            <i class="bi bi-info-circle"></i> See How It Works
+        </a>
+    </section>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -8,22 +8,27 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "swap_requests")
 public class SwapRequest {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "requester_id", nullable = false)
-    private User requester;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id", nullable = false)
-    private Book book;
+    private Book book; // Book being requested
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requester_id", nullable = false)
+    private User requester; // User requesting the swap
 
     @Enumerated(EnumType.STRING)
-    private SwapStatus status = SwapStatus.PENDING;
+    @Column(nullable = false)
+    private SwapStatus status; // PENDING, ACCEPTED, REJECTED, COMPLETED
 
-    private LocalDateTime requestDate = LocalDateTime.now();
+    @Column(name = "requested_at")
+    private LocalDateTime requestedAt;
 
+    @Column(name = "responded_at")
+    private LocalDateTime respondedAt;
+
+    private String message; // Optional message from requester
 }

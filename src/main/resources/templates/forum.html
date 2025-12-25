@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments :: header"></head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<div class="container mt-5">
+    <h2 class="mb-4">📚 Available Books</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="book : ${books}">
+            <div class="card h-100 shadow-sm">
+                <img class="card-img-top"
+                     th:src="${book.photoURL != null && !#strings.isEmpty(book.photoURL) 
+                             ? book.photoURL 
+                             : 'https://via.placeholder.com/300x450?text=No+Cover'}"
+                     alt="Book cover" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.title}">Book Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" th:text="${book.author}">Author</h6>
+                    
+                    <p class="card-text">
+                        <strong>Condition:</strong> <span th:text="${book.condition}">Good</span><br>
+                        <strong>Owner:</strong> <span th:text="${book.owner.username}">User</span>
+                    </p>
+                    
+                    <div sec:authorize="isAuthenticated()">
+                        <div th:if="${#authentication.name != book.owner.username}">
+                            <form th:action="@{/swap/request/{id}(id=${book.id})}" method="post" class="d-inline w-100">
+                                <button type="submit" class="btn btn-primary w-100">
+                                        Request Swap
+                                </button>
+                            </form>
+                        </div>
+                        <div th:if="${#authentication.name == book.owner.username}">
+                            <span class="badge bg-secondary">Your Listing</span>
+                        </div>
+                        <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                            <div class="card-footer bg-white border-0 d-flex gap-2 px-0">
+                                <a class="btn btn-outline-primary btn-sm w-50" th:href="@{/books/{id}/edit(id=${book.id})}">Edit</a>
+                                <form th:action="@{/books/{id}/delete(id=${book.id})}" method="post" class="w-50">
+                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                    <button type="submit" class="btn btn-outline-danger btn-sm w-100" onclick="return confirm('Delete this listing?');">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div sec:authorize="isAnonymous()">
+                        <a href="/login" class="btn btn-outline-primary w-100">Login to Request</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <div th:if="${books.empty}" class="alert alert-info w-100">
+            No books are currently available for swap. Be the first to list one!
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

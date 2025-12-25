@@ -20,7 +20,7 @@ public class Book {
     private BookCondition condition;
 
     @Enumerated(EnumType.STRING)
-    private BookStatus status = BookStatus.AVAILABLE;
+    private BookStatus status;
 
     private String photoURL;
 

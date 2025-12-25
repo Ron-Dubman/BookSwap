@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: header"></head>
+<body>
+
+<nav th:replace="fragments :: navbar"></nav>
+
+<div class="container mt-5 mb-5" style="max-width: 800px;">
+    <h1 class="text-center mb-5">📖 How BookSwap Works</h1>
+
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body d-flex align-items-center">
+            <div class="display-4 text-primary me-4">1</div>
+            <div>
+                <h4>Browse & Request</h4>
+                <p class="text-muted mb-0">Browse the <a href="/forum">Forum</a> page. When you find a book you like, click the <strong>Request Swap</strong> button. You can add a short note suggesting a meeting place.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body d-flex align-items-center">
+            <div class="display-4 text-primary me-4">2</div>
+            <div>
+                <h4>Owner Approval</h4>
+                <p class="text-muted mb-0">The owner of the book will see your request on their dashboard. They can review your profile and choose to <strong>Accept</strong> or <strong>Reject</strong> the swap.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-0 shadow-sm">
+        <div class="card-body d-flex align-items-center">
+            <div class="display-4 text-primary me-4">3</div>
+            <div>
+                <h4>Connect & Swap</h4>
+                <p class="text-muted mb-0">
+                    Once accepted, <strong>contact details are revealed</strong> on your dashboard. 
+                    Email the owner to finalize the time and place for the exchange.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a href="/forum" class="btn btn-success btn-lg">Browse Books Now</a>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

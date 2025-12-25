@@ -27,7 +27,7 @@ public class UserService {
         
         String hashedPassword = passwordEncoder.encode(rawPassword);
 
-        Role roles = Role.ROLE_GUEST;
+        Role roles = Role.ROLE_MEMBER;
 
         if (isAdmin){
             roles = Role.ROLE_ADMIN;
